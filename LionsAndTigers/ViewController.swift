@@ -57,15 +57,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toolbarButtonPressed(sender: UIBarButtonItem) {
-        var randomNumber = Int(arc4random_uniform(UInt32(4)))
+        var randomNumber = Int(arc4random_uniform(UInt32(tigers.count)))
         while currentNumber == randomNumber{
-            randomNumber = Int(arc4random_uniform(UInt32(4)))
+            randomNumber = Int(arc4random_uniform(UInt32(tigers.count)))
         }
-        nameLabel.text = tigers[randomNumber].name
-        ageLabel.text = "\(tigers[randomNumber].age)"
-        breedLabel.text = tigers[randomNumber].breed
-        imageView.image = tigers[randomNumber].image
         currentNumber = randomNumber
+        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            self.nameLabel.text = self.tigers[randomNumber].name
+            self.ageLabel.text = "\(self.tigers[randomNumber].age)"
+            self.breedLabel.text = self.tigers[randomNumber].breed
+            self.imageView.image = self.tigers[randomNumber].image
+            }, completion: {
+                (finished: Bool) -> () in
+        })
         
     }
     
