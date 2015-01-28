@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    var i = 0
+    var currentNumber = 0
+    var tigers:[Tiger] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +43,12 @@ class ViewController: UIViewController {
         fourthTiger.age = 5
         fourthTiger.image = UIImage(named:"SiberianTiger.jpg")
         
-        var tigers = [myTiger, secondTiger, thirdTiger, fourthTiger]
-        println("\(tigers[i])")
+        tigers = [myTiger, secondTiger, thirdTiger, fourthTiger]
+        println(tigers[currentNumber])
         nameLabel.text = myTiger.name
         ageLabel.text = "\(myTiger.age)"
         breedLabel.text = myTiger.breed
         imageView.image = myTiger.image
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,6 +57,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toolbarButtonPressed(sender: UIBarButtonItem) {
+        var randomNumber = Int(arc4random_uniform(UInt32(4)))
+        while currentNumber == randomNumber{
+            randomNumber = Int(arc4random_uniform(UInt32(4)))
+        }
+        nameLabel.text = tigers[randomNumber].name
+        ageLabel.text = "\(tigers[randomNumber].age)"
+        breedLabel.text = tigers[randomNumber].breed
+        imageView.image = tigers[randomNumber].image
+        currentNumber = randomNumber
+        
     }
     
 }
