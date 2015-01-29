@@ -13,8 +13,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var factLabel: UILabel!
+    
     var currentNumber = 0
     var tigers:[Tiger] = []
+    var lions:[Lion] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +52,25 @@ class ViewController: UIViewController {
         ageLabel.text = "\(myTiger.age)"
         breedLabel.text = myTiger.breed
         imageView.image = myTiger.image
+        factLabel.text = randomFact()
+        myTiger.chuff(3)
+        secondTiger.chuff(2, isLoud: false)
+        
+        var lion = Lion()
+        lion.age = 4
+        lion.isAlphaMale = false
+        lion.name = "Mufasa"
+        lion.image = UIImage(named: "Lion.jpg")
+        lion.subspecies = "West African"
+        
+        var lioness = Lion()
+        lioness.age = 3
+        lioness.isAlphaMale = false
+        lioness.image = UIImage(named: "Lioness.jpeg")
+        lioness.name = "Sarabi"
+        lioness.subspecies = "Barbary"
+        
+        lions = [lion, lioness]
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,21 +79,38 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toolbarButtonPressed(sender: UIBarButtonItem) {
-        var randomNumber = Int(arc4random_uniform(UInt32(tigers.count)))
-        while currentNumber == randomNumber{
+        var randomNumber:Int
+        do{
             randomNumber = Int(arc4random_uniform(UInt32(tigers.count)))
-        }
+        } while currentNumber == randomNumber
         currentNumber = randomNumber
         UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.nameLabel.text = self.tigers[randomNumber].name
-            self.ageLabel.text = "\(self.tigers[randomNumber].age)"
-            self.breedLabel.text = self.tigers[randomNumber].breed
-            self.imageView.image = self.tigers[randomNumber].image
             }, completion: {
                 (finished: Bool) -> () in
         })
-        
+        self.imageView.image = self.tigers[randomNumber].image
+        self.nameLabel.text = self.tigers[randomNumber].name
+        self.ageLabel.text = "\(self.tigers[randomNumber].age)"
+        self.breedLabel.text = self.tigers[randomNumber].breed
+        factLabel.text = randomFact()
+
+
     }
     
+    func randomFact() -> String {
+        let randomNumber = Int(arc4random_uniform(UInt32(3)))
+        var randomFact:String
+        
+        if randomNumber == 0 {
+            randomFact = "The Tiger is the biggest species in the cat family"
+        }
+        else if randomNumber == 1 {
+            randomFact = "Tigers can reach a length of 3.3 meters"
+        }
+        else {
+            randomFact = "A group of tigers is known as an 'ambush' or 'streak'"
+        }
+        return randomFact
+    }
 }
 
