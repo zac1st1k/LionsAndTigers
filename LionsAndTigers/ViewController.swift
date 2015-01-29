@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var factLabel: UILabel!
     
-    var currentNumber = 0
     var tigers:[Tiger] = []
     var lions:[Lion] = []
+    var currentIndex:(String, Int) = ("",0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +47,6 @@ class ViewController: UIViewController {
         fourthTiger.image = UIImage(named:"SiberianTiger.jpg")
         
         tigers = [myTiger, secondTiger, thirdTiger, fourthTiger]
-        println(tigers[currentNumber])
-        nameLabel.text = myTiger.name
-        ageLabel.text = "\(myTiger.age)"
-        breedLabel.text = myTiger.breed
-        imageView.image = myTiger.image
-        factLabel.text = randomFact()
-        myTiger.chuff(3)
-        secondTiger.chuff(2, isLoud: false)
         
         var lion = Lion()
         lion.age = 4
@@ -71,6 +63,18 @@ class ViewController: UIViewController {
         lioness.subspecies = "Barbary"
         
         lions = [lion, lioness]
+        
+        currentIndex = ("Tiger", 0)
+        nameLabel.text = myTiger.name
+        ageLabel.text = "\(myTiger.age)"
+        breedLabel.text = myTiger.breed
+        imageView.image = myTiger.image
+        factLabel.text = randomFact()
+        myTiger.chuff(3)
+        secondTiger.chuff(2, isLoud: false)
+        lioness.roar()
+        lion.changeToAlphaMale()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,22 +83,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toolbarButtonPressed(sender: UIBarButtonItem) {
-        var randomNumber:Int
-        do{
-            randomNumber = Int(arc4random_uniform(UInt32(tigers.count)))
-        } while currentNumber == randomNumber
-        currentNumber = randomNumber
-        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            }, completion: {
-                (finished: Bool) -> () in
-        })
-        self.imageView.image = self.tigers[randomNumber].image
-        self.nameLabel.text = self.tigers[randomNumber].name
-        self.ageLabel.text = "\(self.tigers[randomNumber].age)"
-        self.breedLabel.text = self.tigers[randomNumber].breed
-        factLabel.text = randomFact()
-
-
+        switchAnimal()
+        updateView()
     }
     
     func randomFact() -> String {
@@ -111,6 +101,49 @@ class ViewController: UIViewController {
             randomFact = "A group of tigers is known as an 'ambush' or 'streak'"
         }
         return randomFact
+    }
+    
+    func switchAnimal() {
+        switch currentIndex {
+        case ("Tiger",_):
+            self.currentIndex = ("Lion", lions.count)
+        default:
+            self.currentIndex = ("Tiger", tigers.count)
+        }
+    }
+    func updateView() {
+        var randomNumber:Int
+        do{
+            randomNumber = Int(arc4random_uniform(UInt32(currentIndex.1)))
+        } while currentIndex.1 == randomNumber
+        currentIndex.1 = randomNumber
+
+        switch currentIndex {
+        case ("Tiger", _):
+              UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+                }, completion: {
+                    (finished: Bool) -> () in
+            })
+            self.imageView.image = self.tigers[randomNumber].image
+            self.nameLabel.text = self.tigers[randomNumber].name
+            self.ageLabel.text = "\(self.tigers[randomNumber].age)"
+            self.breedLabel.text = self.tigers[randomNumber].breed
+            factLabel.text = randomFact()
+        default:
+            do{
+                randomNumber = Int(arc4random_uniform(UInt32(lions.count)))
+            } while currentIndex.1 == randomNumber
+            currentIndex.1 = randomNumber
+            UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+                }, completion: {
+                    (finished: Bool) -> () in
+            })
+            self.imageView.image = self.lions[randomNumber].image
+            self.nameLabel.text = self.lions[randomNumber].name
+            self.ageLabel.text = "\(self.lions[randomNumber].age)"
+            self.breedLabel.text = self.lions[randomNumber].subspecies
+            factLabel.text = lions[randomNumber].randomFact()
+        }
     }
 }
 

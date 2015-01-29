@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11A3D5FE1A79E06A0065E792 /* Lion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3D5FD1A79E06A0065E792 /* Lion.swift */; };
+		11A3D6021A79EFA00065E792 /* LionCub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3D6011A79EFA00065E792 /* LionCub.swift */; };
 		11A9D37D1A78E8AB00CA39E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9D37C1A78E8AB00CA39E3 /* AppDelegate.swift */; };
 		11A9D37F1A78E8AB00CA39E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9D37E1A78E8AB00CA39E3 /* ViewController.swift */; };
 		11A9D3821A78E8AB00CA39E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11A9D3801A78E8AB00CA39E3 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		11A3D5FD1A79E06A0065E792 /* Lion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lion.swift; sourceTree = "<group>"; };
+		11A3D6011A79EFA00065E792 /* LionCub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LionCub.swift; path = ../LionCub.swift; sourceTree = "<group>"; };
 		11A9D3771A78E8AB00CA39E3 /* LionsAndTigers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LionsAndTigers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A9D37B1A78E8AB00CA39E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11A9D37C1A78E8AB00CA39E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				11A9D37C1A78E8AB00CA39E3 /* AppDelegate.swift */,
 				11A9D37E1A78E8AB00CA39E3 /* ViewController.swift */,
 				11A3D5FD1A79E06A0065E792 /* Lion.swift */,
+				11A3D6011A79EFA00065E792 /* LionCub.swift */,
 				11A9D39C1A78EB9000CA39E3 /* Tiger.swift */,
 				11A9D3801A78E8AB00CA39E3 /* Main.storyboard */,
 				11A9D3831A78E8AB00CA39E3 /* Images.xcassets */,
@@ -253,6 +256,7 @@
 				11A9D37F1A78E8AB00CA39E3 /* ViewController.swift in Sources */,
 				11A9D39D1A78EB9000CA39E3 /* Tiger.swift in Sources */,
 				11A9D37D1A78E8AB00CA39E3 /* AppDelegate.swift in Sources */,
+				11A3D6021A79EFA00065E792 /* LionCub.swift in Sources */,
 				11A3D5FE1A79E06A0065E792 /* Lion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
