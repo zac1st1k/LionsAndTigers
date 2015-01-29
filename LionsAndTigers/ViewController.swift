@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var tigers:[Tiger] = []
     var lions:[Lion] = []
+    var lionCubs:[LionCub] = []
     var currentIndex:(String, Int) = ("",0)
     
     override func viewDidLoad() {
@@ -64,16 +65,37 @@ class ViewController: UIViewController {
         
         lions = [lion, lioness]
         
+        var lionCub = LionCub()
+        lionCub.age = 1
+        lionCub.name = "Simba"
+        lionCub.image = UIImage(named: "LionCub1.jpg")
+        lionCub.subspecies = "Masai"
+        
+        var femaleLionCub = LionCub()
+        femaleLionCub.age = 1
+        femaleLionCub.name = "Nala"
+        femaleLionCub.image = UIImage(named: "LionCub2.jpeg")
+        femaleLionCub.subspecies = "Transvaal"
+        femaleLionCub.isAlphaMale = false
+        
+        self.lionCubs = [lionCub, femaleLionCub]
+        
+        lionCub.roar()
+        myTiger.chuff(3)
+        secondTiger.chuff(2, isLoud: false)
+        lioness.roar()
+        lion.changeToAlphaMale()
+        lionCub.roar()
+        lionCub.rubLionCubsBelly()
+        lionCub.changeToAlphaMale()
+        println(lionCub.isAlphaMale)
+        
         currentIndex = ("Tiger", 0)
         nameLabel.text = myTiger.name
         ageLabel.text = "\(myTiger.age)"
         breedLabel.text = myTiger.breed
         imageView.image = myTiger.image
         factLabel.text = randomFact()
-        myTiger.chuff(3)
-        secondTiger.chuff(2, isLoud: false)
-        lioness.roar()
-        lion.changeToAlphaMale()
         
     }
     
@@ -105,8 +127,10 @@ class ViewController: UIViewController {
     
     func switchAnimal() {
         switch currentIndex {
-        case ("Tiger",_):
+        case ("Tiger", _):
             self.currentIndex = ("Lion", lions.count)
+        case ("Lion", _):
+            self.currentIndex = ("LionCub", lionCubs.count)
         default:
             self.currentIndex = ("Tiger", tigers.count)
         }
@@ -117,32 +141,30 @@ class ViewController: UIViewController {
             randomNumber = Int(arc4random_uniform(UInt32(currentIndex.1)))
         } while currentIndex.1 == randomNumber
         currentIndex.1 = randomNumber
-
+        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            }, completion: {
+                (finished: Bool) -> () in
+        })
+        
         switch currentIndex {
         case ("Tiger", _):
-              UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-                }, completion: {
-                    (finished: Bool) -> () in
-            })
             self.imageView.image = self.tigers[randomNumber].image
             self.nameLabel.text = self.tigers[randomNumber].name
             self.ageLabel.text = "\(self.tigers[randomNumber].age)"
             self.breedLabel.text = self.tigers[randomNumber].breed
             factLabel.text = randomFact()
-        default:
-            do{
-                randomNumber = Int(arc4random_uniform(UInt32(lions.count)))
-            } while currentIndex.1 == randomNumber
-            currentIndex.1 = randomNumber
-            UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-                }, completion: {
-                    (finished: Bool) -> () in
-            })
+        case("Lion", _):
             self.imageView.image = self.lions[randomNumber].image
             self.nameLabel.text = self.lions[randomNumber].name
             self.ageLabel.text = "\(self.lions[randomNumber].age)"
             self.breedLabel.text = self.lions[randomNumber].subspecies
             factLabel.text = lions[randomNumber].randomFact()
+        default:
+            self.imageView.image = self.lionCubs[randomNumber].image
+            self.nameLabel.text = self.lionCubs[randomNumber].name
+            self.ageLabel.text = "\(self.lionCubs[randomNumber].age)"
+            self.breedLabel.text = self.lionCubs[randomNumber].subspecies
+            factLabel.text = lionCubs[randomNumber].randomFact()
         }
     }
 }
